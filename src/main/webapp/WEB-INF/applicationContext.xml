@@ -3,22 +3,17 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation=
-               "http://www.springframework.org/schema/beans
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
                 http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context
+                 http://www.springframework.org/schema/context/spring-context.xsd
                  http://www.springframework.org/schema/aop
                   http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!--//컴퍼넌트 스캔-->
+<!--    <context:annotation-config />-->
+    <context:component-scan base-package="controller"/>
+    <context:component-scan base-package="aop"/>
     <aop:aspectj-autoproxy/>
-    <bean id="urlMethod" class="controller.HelloController" />
-    <bean id="executionTime" class="aop.ExecutionTime" />
-
-    <!-- AOP 설정 -->
-<!--    <aop:config>-->
-<!--        <aop:aspect id="aspectTime" ref='executionTime'>-->
-<!--            <aop:pointcut id="pointcutAround" expression="execution(* controller.HelloController.*(..))"/>-->
-<!--            <aop:around method="printMethodExecutionTime" pointcut-ref="pointcutAround" />-->
-<!--        </aop:aspect>-->
-<!--    </aop:config>-->
+<!--    <bean id="executionTime" class="aop.ExecutionTime" />-->
+<!--    <bean id="helloController" class="controller.HelloController" />-->
 </beans>
