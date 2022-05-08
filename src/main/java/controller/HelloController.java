@@ -18,14 +18,20 @@ public class HelloController {
     @ResponseBody
     public String hello()
     {
+        //접근을 출력하여 알린다.
         System.out.println("/helloBody");
+        //for문을 이용하여 메소드 실행시간을 조금이나마 늘린다.
+        for(int i=0;i<100000;++i);
         return "hello world!";
     }
 
-    //매핑을 한다.
+    //매핑을 한다
     @RequestMapping(value ="hello", method = RequestMethod.GET)
     public String hello2() {
+        //접근을 출력하여 알린다.
         System.out.println("/hello");
+        //for문을 이용하여 메소드 실행시간을 조금이나마 늘린다.
+        for(int i=0;i<100000;++i);
         return "hello";
     }
 }

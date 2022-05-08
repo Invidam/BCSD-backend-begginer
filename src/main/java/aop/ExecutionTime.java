@@ -27,7 +27,7 @@ public class ExecutionTime
             long afterExecutionTime = System.currentTimeMillis();
             //메소드 이름을 출력한다.
             //두 시간 차이를 출력한다.
-            System.out.println(pjp.getSignature().getName()  + (afterExecutionTime - beforeExecutionTime));
+            System.out.println(pjp.getSignature().toString() + ", Execution time : " + (afterExecutionTime - beforeExecutionTime) + "ms");
             return ret;
         }
         catch(Throwable throwable) {

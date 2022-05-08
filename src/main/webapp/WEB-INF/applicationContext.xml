@@ -10,10 +10,4 @@
                  http://www.springframework.org/schema/aop
                   http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-<!--    <context:annotation-config />-->
-    <context:component-scan base-package="controller"/>
-    <context:component-scan base-package="aop"/>
-    <aop:aspectj-autoproxy/>
-<!--    <bean id="executionTime" class="aop.ExecutionTime" />-->
-<!--    <bean id="helloController" class="controller.HelloController" />-->
 </beans>
