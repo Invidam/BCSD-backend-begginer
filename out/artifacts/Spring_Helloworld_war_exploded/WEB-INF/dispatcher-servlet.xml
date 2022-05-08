@@ -15,10 +15,10 @@
 
     <mvc:annotation-driven/>
 <!--    컨트롤러를 빈으로 등록하겠다.-->
-    <context:annotation-config />
+<!--    <context:annotation-config />-->
     <context:component-scan base-package="aop"/>
     <context:component-scan base-package="controller"/>
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <aop:aspectj-autoproxy/>
 <!--    다음 주에서 배울 예정-->
 <!--    JSP라는 웹페이지를 반환하겠다.-->
 <!--    WEB-INF/views/에 .jsp라고 붙여진 파일을 불러오겠다.-->
