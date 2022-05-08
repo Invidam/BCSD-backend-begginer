@@ -13,12 +13,8 @@ public class ExecutionTime
 {
     @Pointcut("execution(* controller.HelloController.*(..))")
     public void controllerMethod(){}
-    @Pointcut("execution(* controller.*.*(..))")
-    public void allMethod(){}
 
-    //    @Around("controllerMethod ()")
-//    @Around("controllerMethod () || allMethod()")
-    @Around("allMethod()")
+    @Around("controllerMethod ()")
     public Object printMethodExecutionTime(ProceedingJoinPoint pjp) throws Throwable {
         //AOP가 실행되었음을 알린다.
         System.out.println("Execution Time check");
