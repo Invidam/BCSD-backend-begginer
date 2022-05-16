@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.CommentMapper">
+    <resultMap id="CommentResultMap" type="domain.Comment">
+        <result property="id" column="id" />
+        <result property="content" column="content" />
+        <result property="userId" column="user_id" />
+        <result property="boardId" column="board_id" />
+        <result property="isValid" column="is_valid" />
+    </resultMap>
+    <insert id="createComment" parameterType="domain.Comment">
+        INSERT INTO comment (content, user_id,board_id,created_at,is_valid) VALUES(#{content},#{userId},#{boardId},now(),1)
+    </insert>
+    <select id="getCommentById" parameterType="Long" resultMap="CommentResultMap">
+        SELECT id, content, user_id, board_id, is_valid FROM comment WHERE id=#{id}
+    </select>
+
+    <update id="updateComment" parameterType="domain.Comment">
+        UPDATE comment SET content = #{content} WHERE id = #{id}
+    </update>
+
+
+    <delete id="deleteCommentById" parameterType="Long">
+        DELETE FROM user WHERE id=#{id}
+    </delete>
+</mapper>
+
+        <!--repo의 해당 xml 파일과 연결-->
+        <!--select, update, delete를 사용 가능-->
+        <!--@REPO의 interface의 인터페이스와 연결후 메서드 사용가능-->
+        <!--메서드 이름은 최대한 복붙해서 만들기-->
+        <!--#{id}는 동적으로 쿼리 넣어주는 부분-->

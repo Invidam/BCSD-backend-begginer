@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.BoardMapper">
+    <resultMap id="BoardResultMap" type="domain.Board">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="isValid" column="is_valid" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <!--        <result property="category" column="category" />-->
+        <!--        <result property="hashTags" column="hash_tags"  javaType="java.util.List" />-->
+        <association property="category" column="category_id"   javaType="String" select="findCategoryById"/>
+        <collection property="hashTags" column="id" javaType="list" ofType="java.lang.String">
+            <result column="hash_tags" />
+        </collection>
+        <collection property="comments" column="id" javaType="list" ofType="domain.Comment"  select="getCommentByBoardId"/>
+    </resultMap>
+    <resultMap id="CommentResultMap" type="domain.Comment">
+        <result property="id" column="id" />
+        <result property="content" column="content" />
+        <result property="userId" column="user_id" />
+        <result property="boardId" column="board_id" />
+        <result property="isValid" column="is_valid" />
+    </resultMap>
+    <insert id="createBoard" parameterType="domain.Board">
+        INSERT INTO board (title,content, user_id,category_id,created_at,is_valid) VALUES(#{title},#{content},#{userId},(SELECT id FROM category WHERE category_name = #{category}),now(),1)
+        <selectKey keyProperty="id" resultType="Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <select id="getBoardById" parameterType="Long" resultMap="BoardResultMap">
+        SELECT b.id, b.user_id, b.is_valid,  b.title, b.content, b.category_id ,GROUP_CONCAT(h.hash_tag_name) as hash_tags FROM (SELECT * FROM board WHERE id = #{id}) b LEFT JOIN board_hash_tag AS bh ON  b.id = bh.board_id LEFT JOIN hash_tag AS h ON h.id = bh.hash_tag_id
+    </select>
+<!--    <select id="getBoardId" parameterType="String" resultMap="Long">-->
+<!--        SELECT b.id, b.user_id, b.is_valid,  b.title, b.content, b.category_id ,GROUP_CONCAT(h.hash_tag_name) as hash_tags FROM (SELECT * FROM board WHERE id = #{id}) b LEFT JOIN board_hash_tag AS bh ON  b.id = bh.board_id LEFT JOIN hash_tag AS h ON h.id = bh.hash_tag_id-->
+<!--    </select>-->
+    <update id="updateBoardTitle" parameterType="domain.Board">
+        UPDATE board SET title =#{title} WHERE id =#{id}
+    </update>
+    <delete id="deleteBoardById" parameterType="Long">
+        DELETE FROM board WHERE id=#{id}
+    </delete>
+    <select id="isExistCategory" parameterType="String" resultType="int">
+        SELECT count(*) FROM category WHERE category_name = #{category}
+    </select>
+    <select id="isExistHashTag" parameterType="String" resultType="int">
+        SELECT count(*) FROM hash_tag WHERE hash_tag_name = #{hashTag}
+    </select>
+
+    <select id="findCategoryById" parameterType="String" resultType="Long">
+        SELECT id FROM category WHERE category_name = #{category}
+    </select>
+    <select id="findHashTagById" parameterType="String" resultType="Long">
+        SELECT id FROM hash_tag WHERE hash_tag_name = #{hashTag}
+    </select>
+
+    <insert id="createCategory" parameterType="String">
+        INSERT INTO category (category_name) VALUES(#{category})
+    </insert>
+
+    <insert id="createHashTag" parameterType="String">
+        INSERT INTO hash_tag (hash_tag_name) VALUES(#{hashTag})
+    </insert>
+
+    <insert id="createHashTagsRelationship">
+        INSERT INTO board_hash_tag (board_id, hash_tag_id) VALUES(#{boardId}, #{hashTagId})
+    </insert>
+
+    <delete id="deleteHashTagRelationShip" parameterType="Long">
+        DELETE FROM board_hash_tag WHERE board_id = #{id}
+    </delete>
+    <select id="getCommentByBoardId" parameterType="Long" resultMap="CommentResultMap">
+        SELECT id, content, user_id, board_id, is_valid FROM comment WHERE board_id=#{id}
+    </select>
+    <delete id="deleteCommentByBoardId" parameterType="Long" >
+        DELETE FROM comment WHERE board_id = #{id}
+    </delete>
+
+<!--    <select id="getCategoryById" parameterType="Long" resultType="String">-->
+<!--        SELECT category_name FROM category WHERE id = #{category_id}-->
+<!--    </select>-->
+    <!--    <select id="getCategoryById" parameterType="Long" resultType="String">-->
+    <!--        SELECT hash_tag_name FROM hash_tag WHERE id = #{hashtag_id}-->
+    <!--    </select>-->
+    <!--    <select id="getCategoryId" parameterType="String" resultType="Long">-->
+    <!--        SELECT id FROM category WHERE id = #{category}-->
+    <!--    </select>-->
+    <!--    <select id="getHashTagId" parameterType="String" resultType="Long">-->
+    <!--        SELECT id FROM category WHERE id = #{hashTag}-->
+    <!--    </select>-->
+</mapper>
+
+        <!--repo의 해당 xml 파일과 연결-->
+        <!--select, update, delete를 사용 가능-->
+        <!--@REPO의 interface의 인터페이스와 연결후 메서드 사용가능-->
+        <!--메서드 이름은 최대한 복붙해서 만들기-->
+        <!--#{id}는 동적으로 쿼리 넣어주는 부분-->

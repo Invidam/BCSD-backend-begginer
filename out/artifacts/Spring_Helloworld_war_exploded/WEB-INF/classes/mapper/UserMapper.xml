@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.UserMapper">
+    <resultMap id="UserResultMap" type="domain.User">
+        <result property="id" column="id" />
+        <result property="account" column="account" />
+        <result property="password" column="password" />
+        <result property="nickname" column="nickname" />
+        <result property="isValid" column="is_valid" />
+<!--        <result property="createdAt" column="created_at" />-->
+<!--        <result property="suspendAt" column="suspend_at" />-->
+<!--        <result property="releaseAt" column="release_at" />-->
+<!--        <result property="suspendCode" column="suspend_code" />-->
+    </resultMap>
+    <insert id="createUser" parameterType="domain.User">
+        INSERT INTO user (account, password,nickname,created_at,is_valid) VALUES(#{account},#{password},#{nickname},now(),#{isValid})
+    </insert>
+    <select id="getUserById" parameterType="Long" resultMap="UserResultMap">
+        SELECT id, account, password,nickname,is_valid FROM user WHERE id=#{id}
+    </select>
+
+    <update id="updateUserNicknameById" parameterType="domain.User">
+        UPDATE user SET nickname =#{nickname} WHERE id =#{id}
+    </update>
+
+
+    <delete id="deleteUserById" parameterType="Long">
+        DELETE FROM user WHERE id=#{id}
+    </delete>
+</mapper>
+
+<!--repo의 해당 xml 파일과 연결-->
+<!--select, update, delete를 사용 가능-->
+<!--@REPO의 interface의 인터페이스와 연결후 메서드 사용가능-->
+<!--메서드 이름은 최대한 복붙해서 만들기-->
+<!--#{id}는 동적으로 쿼리 넣어주는 부분-->
