@@ -33,10 +33,6 @@ public class CommentController {
         return "createComment";
     }
 
-    //    @RequestMapping(value="create", method = RequestMethod.POST)
-//    public String createCommentProcess() {
-//        return "comment created";
-//    }
     @GetMapping(value="read")
     public Comment getCommentInfo(){
         return commentService.getCommentById(1L);

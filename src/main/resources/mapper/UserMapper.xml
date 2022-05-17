@@ -29,9 +29,3 @@
         DELETE FROM user WHERE id=#{id}
     </delete>
 </mapper>
-
-<!--repo의 해당 xml 파일과 연결-->
-<!--select, update, delete를 사용 가능-->
-<!--@REPO의 interface의 인터페이스와 연결후 메서드 사용가능-->
-<!--메서드 이름은 최대한 복붙해서 만들기-->
-<!--#{id}는 동적으로 쿼리 넣어주는 부분-->

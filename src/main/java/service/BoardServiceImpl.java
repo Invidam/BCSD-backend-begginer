@@ -33,18 +33,9 @@ public class BoardServiceImpl implements BoardService{
         boardMapper.createCategory(category);
     }
 
+    @Override
     public void createHashTag(String hashTag) {
         boardMapper.createHashTag(hashTag);
-    }
-
-    @Override
-    public void createCategoryRelationShip(long boardId, String category) {
-//        long categoryId = ;
-        long categoryId = findCategoryId(category);
-        // 카테고리 id를  게시글 db 칼럼으로 에 저장하기
-
-//        boardMapper.createCategoryRelationShip(boardId,hashTagId);
-
     }
     @Override
     public void createHashTagRelationShip(long boardId, String hashTag) {

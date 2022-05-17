@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping("/board")
 public class BoardController {
 
-
     private final BoardService boardService;
 
     @Autowired
@@ -43,10 +42,6 @@ public class BoardController {
         return "createBoard";
     }
 
-//    @RequestMapping(value="create", method = RequestMethod.POST)
-//    public String createBoardProcess() {
-//        return "board created";
-//    }
     @GetMapping(value="read")
     public Board getBoardInfo(){
         return boardService.getBoardById(1L);

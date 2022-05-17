@@ -9,8 +9,6 @@ public interface BoardService {
     void createCategory(String category);
     void createHashTag(String hashTag);
 
-    void createCategoryRelationShip(long boardId, String category);
-
     void createHashTagRelationShip(long boardId, String hashTag);
 
     //hash -> id 필요.
