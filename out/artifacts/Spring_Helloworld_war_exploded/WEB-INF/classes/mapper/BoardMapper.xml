@@ -76,23 +76,4 @@
     <delete id="deleteCommentByBoardId" parameterType="Long" >
         DELETE FROM comment WHERE board_id = #{id}
     </delete>
-
-<!--    <select id="getCategoryById" parameterType="Long" resultType="String">-->
-<!--        SELECT category_name FROM category WHERE id = #{category_id}-->
-<!--    </select>-->
-    <!--    <select id="getCategoryById" parameterType="Long" resultType="String">-->
-    <!--        SELECT hash_tag_name FROM hash_tag WHERE id = #{hashtag_id}-->
-    <!--    </select>-->
-    <!--    <select id="getCategoryId" parameterType="String" resultType="Long">-->
-    <!--        SELECT id FROM category WHERE id = #{category}-->
-    <!--    </select>-->
-    <!--    <select id="getHashTagId" parameterType="String" resultType="Long">-->
-    <!--        SELECT id FROM category WHERE id = #{hashTag}-->
-    <!--    </select>-->
 </mapper>
-
-        <!--repo의 해당 xml 파일과 연결-->
-        <!--select, update, delete를 사용 가능-->
-        <!--@REPO의 interface의 인터페이스와 연결후 메서드 사용가능-->
-        <!--메서드 이름은 최대한 복붙해서 만들기-->
-        <!--#{id}는 동적으로 쿼리 넣어주는 부분-->
